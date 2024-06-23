@@ -32,13 +32,14 @@ chpasswd:
 ## You may also wish to install avahi-daemon (see the "packages:" key below)
 ## to make your machine reachable by the .local domain
 #hostname: ubuntu
+manage_etc_hosts: true
 
 ## Set up the keyboard layout. See localectl(1), in particular the various
 ## list-x11-* sub-commands, to determine the available models, layouts,
 ## variants, and options
-#keyboard:
-#  model: pc105
-#  layout: gb
+keyboard:
+  model: pc105
+  layout: us
 #  variant:
 #  options: ctrl:nocaps
 
@@ -61,7 +62,7 @@ ssh_pwauth: false
 #- robotics: [robot]
 #- pi
 #
-#users:
+users:
 #- default
 #- name: robot
 #  gecos: Mr. Robot
@@ -70,17 +71,28 @@ ssh_pwauth: false
 #  ssh_import_id: foobar
 #  lock_passwd: false
 #  passwd: $5$hkui88$nvZgIle31cNpryjRfO9uArF7DYiBcWEnjqq7L1AQNN3
+  - name: ubuntu
+    groups: users,adm,dialout,audio,netdev,video,plugdev,cdrom,games,input,gpio,spi,i2c,render,sudo
+    shell: /bin/bash
+    #lock_passwd: false
+    sudo: ALL=(ALL) NOPASSWD:ALL
 
 ## Update apt database and upgrade packages on first boot
 #package_update: true
 #package_upgrade: true
 
 ## Install additional packages on first boot
-#packages:
-#- avahi-daemon
+packages:
+- avahi-daemon
+- auto-apt-proxy
 #- rng-tools
 #- python3-gpiozero
 #- [python3-serial, 3.5-1]
+apt:
+  conf: |
+    Acquire {
+      Check-Date "false";
+    };
 
 ## Write arbitrary files to the file-system (including binaries!)
 #write_files:
@@ -106,7 +118,11 @@ ssh_pwauth: false
 #  permissions: '0644'
 
 ## Run arbitrary commands at rc.local like time
-#runcmd:
+runcmd:
 #- [ ls, -l, / ]
 #- [ sh, -xc, "echo $(date) ': hello world!'" ]
 #- [ wget, "http://ubuntu.com", -O, /run/mydir/index.html ]
+#- localectl set-x11-keymap "us" pc105
+- setupcon -k --force || true
+
+timezone: Australia/Melbourne

@@ -30,11 +30,11 @@ network:
       dhcp4: true
       optional: true
 
-#  wifis:
-#    wlan0:
-#      dhcp4: true
-#      optional: true
-#      access-points:
+  wifis:
+    wlan0:
+      dhcp4: true
+      optional: true
+      access-points:
 #        myhomewifi:
 #          password: "S3kr1t"
 #        myworkwifi:
@@ -47,4 +47,4 @@ network:
 #            password: "passw0rd"
 #            ca-certificate: /etc/my_ca.pem
 
-#      regulatory-domain: GB
+      regulatory-domain: AU
