@@ -32,6 +32,7 @@ chpasswd:
 ## You may also wish to install avahi-daemon (see the "packages:" key below)
 ## to make your machine reachable by the .local domain
 #hostname: ubuntu
+hostname: raspberrypi
 manage_etc_hosts: true
 
 ## Set up the keyboard layout. See localectl(1), in particular the various
@@ -47,7 +48,7 @@ keyboard:
 # prevents logging into SSH with a password. Changing this is a security risk
 # and you should at the very least ensure a different default password is
 # specified above
-ssh_pwauth: false
+ssh_pwauth: true
 
 ## On first boot, use ssh-import-id to give the specific users SSH access to
 ## the default user
@@ -71,11 +72,11 @@ users:
 #  ssh_import_id: foobar
 #  lock_passwd: false
 #  passwd: $5$hkui88$nvZgIle31cNpryjRfO9uArF7DYiBcWEnjqq7L1AQNN3
-  - name: ubuntu
+  - name: pi
     groups: users,adm,dialout,audio,netdev,video,plugdev,cdrom,games,input,gpio,spi,i2c,render,sudo
     shell: /bin/bash
-    #lock_passwd: false
-    sudo: ALL=(ALL) NOPASSWD:ALL
+    lock_passwd: false
+    passwd: mbt
 
 ## Update apt database and upgrade packages on first boot
 #package_update: true

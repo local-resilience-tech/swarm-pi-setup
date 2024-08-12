@@ -31,10 +31,13 @@ network:
       optional: true
 
   wifis:
+    renderer: networkd
     wlan0:
       dhcp4: true
       optional: true
       access-points:
+         "Sussex WiFi":
+           password: REDACTED
 #        myhomewifi:
 #          password: "S3kr1t"
 #        myworkwifi:
