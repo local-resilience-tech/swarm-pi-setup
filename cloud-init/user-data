@@ -85,11 +85,21 @@ users:
 ## Install additional packages on first boot
 packages:
 - avahi-daemon
+# Use https://github.com/terceiro/auto-apt-proxy to detect apt-cacher-ng
+# proxies in the network to save bandwidth on apt package downloads
 - auto-apt-proxy
 #- rng-tools
 #- python3-gpiozero
 #- [python3-serial, 3.5-1]
 apt:
+  # From apt.conf(5):
+  # > Security related option defaulting to true, enabling time-related checks.
+  # > Disabling it means that the machine's time cannot be trusted, and APT will
+  # > hence disable all time-related checks, such as Check-Valid-Until and
+  # > verifying that the Date field of a release file is not in the future.
+  #
+  # We do this because the RPi doesn't have a battery so its time will be
+  # incorrect on first boot.
   conf: |
     Acquire {
       Check-Date "false";
