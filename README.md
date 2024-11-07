@@ -70,11 +70,16 @@ Configure Traefik for HTTP(S) proxying
 
 ```bash
 docker network create --attachable --driver overlay proxy
-# Because we have variable interpolation stuff in traefik.yml, we pre-process
-# that first, and then actually run the deploy using the resulting file
-docker stack config --compose-file traefik.yml | \
-  docker stack deploy --detach --compose-file - traefik
+# Edit traefik.yml and replace TOP_DOMAIN and TRAEFIK_ACME_EMAIL with something
+# sensible
+docker stack deploy --detach --compose-file traefik.yml traefik
 ```
+
+---
+
+> [!WARNING]
+> Here be dragons!
+> The below instructions haven't been polished yet and are just mattcen's notes
 
 [Install and configure GlusterFS](https://thenewstack.io/tutorial-create-a-docker-swarm-with-persistent-storage-using-glusterfs/)
 
@@ -102,4 +107,5 @@ Set up Kiwix
 pi@mbt1:~$ mkdir /vol1/kiwix
 pi@mbt1:~$ wget -nv -P /vol1/kiwix https://download.kiwix.org/zim/wikipedia/wikipedia_en_100_2024-06.zim
 2024-11-08 01:05:05 URL:https://md.mirrors.hacktegic.com/kiwix-md/zim/wikipedia/wikipedia_en_100_2024-06.zim [386004857/386004857] -> "/vol1/kiwix/wikipedia_en_100_2024-06.zim" [1]
+docker stack deploy --detach --compose-file kiwix-wiki-100.yml kiwix-wiki-100
 ```
