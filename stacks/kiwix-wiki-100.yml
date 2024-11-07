@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  kiwix-serve:
+    image: ghcr.io/kiwix/kiwix-serve:3.4.0
+    env_file: .env
+    volumes:
+      - /vol1/kiwix:/data
+    command:
+      wikipedia_en_100_2024-06.zim
+    networks:
+      - proxy
+    deploy:
+      replicas: 2
+      restart_policy:
+        delay: 10s
+        max_attempts: 10
+        window: 60s
+      labels:
+        traefik.enable: "true"
+        traefik.http.routers.kiwix-wiki-100.rule: Host(`wiki.TOP_DOMAIN`)
+        traefik.http.routers.kiwix-wiki-100.entryPoints: websecure
+        traefik.http.routers.kiwix-wiki-100.service: kiwix-wiki-100
+        traefik.http.services.kiwix-wiki-100.loadbalancer.server.port: 8080
+    #healthcheck:
+    #  test: ["CMD", "curl", "-f", "http://localhost/"]
+    #  interval: 30s
+    #  timeout: 20s
+    #  retries: 3
+
+networks:
+  proxy:
+    external: true
