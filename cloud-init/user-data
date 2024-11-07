@@ -73,10 +73,10 @@ users:
 #  lock_passwd: false
 #  passwd: $5$hkui88$nvZgIle31cNpryjRfO9uArF7DYiBcWEnjqq7L1AQNN3
   - name: pi
-    groups: users,adm,dialout,audio,netdev,video,plugdev,cdrom,games,input,gpio,spi,i2c,render,sudo
+    groups: users,adm,dialout,audio,netdev,video,plugdev,cdrom,games,input,gpio,spi,i2c,render,sudo,docker
     shell: /bin/bash
     lock_passwd: false
-    passwd: mbt
+    plain_text_passwd: mbt
 
 ## Update apt database and upgrade packages on first boot
 #package_update: true
@@ -88,6 +88,7 @@ packages:
 # Use https://github.com/terceiro/auto-apt-proxy to detect apt-cacher-ng
 # proxies in the network to save bandwidth on apt package downloads
 - auto-apt-proxy
+- docker.io
 #- rng-tools
 #- python3-gpiozero
 #- [python3-serial, 3.5-1]
