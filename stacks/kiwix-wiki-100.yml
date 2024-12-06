@@ -10,6 +10,8 @@ services:
       wikipedia_en_100_2024-06.zim
     networks:
       - proxy
+    ports:
+      - "8080:8080"
     deploy:
       replicas: 2
       restart_policy:
