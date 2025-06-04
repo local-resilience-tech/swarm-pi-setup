@@ -1,7 +1,7 @@
 version: '3.3'
 services:
   lores-node:
-    image: ghcr.io/local-resilience-tech/lores-node:v0.6.0
+    image: ghcr.io/local-resilience-tech/lores-node:v0.6.2
     environment:
       DATABASE_URL: sqlite:/data/lores-node.db
     ports:
