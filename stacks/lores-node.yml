@@ -1,0 +1,22 @@
+version: '3.3'
+services:
+  lores-node:
+    image: ghcr.io/local-resilience-tech/lores-node:v0.6.0
+    environment:
+      DATABASE_URL: sqlite:/data/lores-node.db
+    ports:
+     - 2022:2022
+     - 2023:2023
+     - 8000:8000
+    volumes:
+     - data:/data
+    networks:
+     - default
+    logging:
+      driver: json-file
+networks:
+  default:
+    driver: overlay
+volumes:
+  data:
+    driver: local
