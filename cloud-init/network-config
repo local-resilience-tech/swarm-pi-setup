@@ -20,8 +20,6 @@
 # ("optional: false") below. Otherwise, particularly on faster boards,
 # cloud-init will start attempting to use the network before it is ready
 
-# Some additional examples are commented out below
-
 network:
   version: 2
 
@@ -31,23 +29,11 @@ network:
       optional: true
 
   wifis:
-    renderer: networkd
     wlan0:
       dhcp4: true
       optional: true
       access-points:
-         "Sussex WiFi":
-           password: REDACTED
-#        myhomewifi:
-#          password: "S3kr1t"
-#        myworkwifi:
-#          password: "correct battery horse staple"
-#        workssid:
-#          auth:
-#            key-management: eap
-#            method: peap
-#            identity: "me@example.com"
-#            password: "passw0rd"
-#            ca-certificate: /etc/my_ca.pem
+         "Your network SSID here":
+           password: YOUR_WIFI_PASSWORD_HERE
 
       regulatory-domain: AU
